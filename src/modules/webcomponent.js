@@ -104,7 +104,7 @@ export class WebComponent {
           // For each registered event.
           for (const event of registeredEvents) {
             // Get element to attach listener to.
-            const targetElement = this.shadowRoot.querySelector(event.getEventListenerElementID)
+            const targetElement = this.shadowRoot.querySelector(event.getEventListenerElementID())
 
             // Add event listener and set abort controller signal to ensure the listener is properly removed later.
             targetElement.addEventListener(event.getEventName(), event.getEventFunction(), { signal: this.#abortController.signal })

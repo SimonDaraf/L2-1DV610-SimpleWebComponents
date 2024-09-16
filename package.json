@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "serve": "vite preview",
-    "test": "vitest",
+    "test": "vitest --environment jsdom",
     "lint": "npx eslint ./src || exit 0",
     "lint:fix": "npx eslint ./src --fix || exit 0"
   },
@@ -18,7 +18,9 @@
   "private": true,
   "devDependencies": {
     "@lnu/eslint-config": "^1.1.10",
-    "vite": "^4.4.9",
+    "jsdom": "^25.0.0",
+    "node": "^22.8.0",
+    "vite": "^5.0.0",
     "vitest": "^2.1.1"
   }
 }

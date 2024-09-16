@@ -7,6 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "serve": "vite preview",
+    "test": "vitest",
     "lint": "npx eslint ./src || exit 0",
     "lint:fix": "npx eslint ./src --fix || exit 0"
   },
@@ -17,6 +18,7 @@
   "private": true,
   "devDependencies": {
     "@lnu/eslint-config": "^1.1.10",
-    "vite": "^4.4.9"
+    "vite": "^4.4.9",
+    "vitest": "^2.1.1"
   }
 }

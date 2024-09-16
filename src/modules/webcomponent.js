@@ -1,3 +1,5 @@
+import { EventContainer } from './eventContainer.js'
+
 /**
  * The web component class used to build a web component.
  */
@@ -24,6 +26,13 @@ export class WebComponent {
   #cssTemplate
 
   /**
+   * An array of registered events.
+   *
+   * @type {EventContainer[]}
+   */
+  #registeredEvents
+
+  /**
    * Constructs an instance of a Web Component.
    *
    * @param {string} componentName - The component name, needs to follow the html element name syntax.
@@ -34,6 +43,16 @@ export class WebComponent {
     this.#componentName = componentName
     this.#htmlTemplate = htmlTemplate
     this.#cssTemplate = cssTemplate
+    this.#registeredEvents = []
+  }
+
+  /**
+   * Registers an event to the web component.
+   *
+   * @param {EventContainer} eventContainer - The event container to register.
+   */
+  registerEvent (eventContainer) {
+    this.#registeredEvents.push(eventContainer)
   }
 
   /**
@@ -46,6 +65,7 @@ export class WebComponent {
     // This is a necessity due to how HTMLElements are handled and created.
     const htmlTemplate = this.#htmlTemplate
     const cssTemplate = this.#cssTemplate
+    const registeredEvents = this.#registeredEvents
 
     customElements.define(this.#componentName,
       /**
@@ -75,6 +95,27 @@ export class WebComponent {
 
           // Create a new AbortController to remove EventListeners when element is removed from the DOM.
           this.#abortController = new AbortController()
+        }
+
+        /**
+         * Called after the element is inserted into the DOM.
+         */
+        connectedCallback () {
+          // For each registered event.
+          for (const event of registeredEvents) {
+            // Get element to attach listener to.
+            const targetElement = this.shadowRoot.querySelector(event.getEventListenerElementID)
+
+            // Add event listener and set abort controller signal to ensure the listener is properly removed later.
+            targetElement.addEventListener(event.getEventName(), event.getEventFunction(), { signal: this.#abortController.signal })
+          }
+        }
+
+        /**
+         * Called after the element is removed from the DOM.
+         */
+        disconnectedCallback () {
+          this.#abortController.abort()
         }
       }
     )

@@ -39,27 +39,30 @@ export class EventContainer {
   /**
    * Getter for event name.
    *
+   * @readonly
    * @returns {string} - The event name.
    */
-  getEventName () {
+  get eventName () {
     return this.#eventName
   }
 
   /**
    * Getter for event listener element id.
    *
+   * @readonly
    * @returns {string} - The event listener element id.
    */
-  getEventListenerElementID () {
+  get eventListenerElementID () {
     return this.#eventListenerElementID
   }
 
   /**
    * Getter for the event function.
    *
+   * @readonly
    * @returns {Function} - The event function.
    */
-  getEventFunction () {
+  get eventFunction () {
     return this.#eventFunction
   }
 }

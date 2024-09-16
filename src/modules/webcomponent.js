@@ -1,7 +1,7 @@
 import { EventContainer } from './eventContainer.js'
 
 /**
- * The web component class used to build a web component.
+ * The Web Component class builds and defines a web component.
  */
 export class WebComponent {
   /**
@@ -47,6 +47,36 @@ export class WebComponent {
   }
 
   /**
+   * The component name.
+   *
+   * @readonly
+   * @returns {string} - The component name.
+   */
+  get componentName () {
+    return this.#componentName
+  }
+
+  /**
+   * The HTML content.
+   *
+   * @readonly
+   * @returns {string} - The HTML content.
+   */
+  get htmlContent () {
+    return this.#htmlTemplate.innerHTML
+  }
+
+  /**
+   * The CSS content.
+   *
+   * @readonly
+   * @returns {string} - The CSS content.
+   */
+  get cssContent () {
+    return this.#cssTemplate.innerHTML
+  }
+
+  /**
    * Registers an event to the web component.
    *
    * @param {EventContainer} eventContainer - The event container to register.
@@ -69,8 +99,7 @@ export class WebComponent {
 
     customElements.define(this.#componentName,
       /**
-       * The custom element constructor
-       * Bind *this* to access user defined properties.
+       * The custom element constructor.
        */
       class extends HTMLElement {
         /**

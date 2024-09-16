@@ -1,5 +1,5 @@
 import { expect, test } from 'vitest'
-import { WebComponent } from '../modules/webcomponent.js'
+import { WebComponent } from '../modules/webComponent.js'
 import { EventContainer } from '../modules/eventContainer.js'
 
 /**

@@ -1,6 +1,6 @@
 import { expect, test } from 'vitest'
-import { WebComponent } from '../modules/webComponent.js'
-import { EventContainer } from '../modules/eventContainer.js'
+import { WebComponent } from '../../package/webComponent.js'
+import { EventContainer } from '../../package/eventContainer.js'
 
 /**
  * Test: Expects element to be added to the DOM.

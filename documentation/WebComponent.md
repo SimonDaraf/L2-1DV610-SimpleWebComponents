@@ -58,5 +58,5 @@ const component = new WebComponent('my-component', htmlTemplate, cssTemplate);
 component.defineComponent();
 
 // The element can then be created.
-const myElement = document.createElement('my-component')
+const myElement = document.createElement('my-component');
 ```

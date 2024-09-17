@@ -7,14 +7,13 @@ import { EventContainer } from '../../package/eventContainer.js'
  */
 test('Creates a custom web component and ensures it has been added to the DOM.', () => {
   // Arrange
-  const name = 'test-element-one'
+  const name = 'test-creation'
   const htmlTemplate = document.createElement('template')
   htmlTemplate.innerHTML = `
   <div>This element has been added.</div>
   `
   // Not necessary for this test.
   const cssTemplate = document.createElement('template')
-  cssTemplate.innerHTML = ''
 
   // Create component.
   const component = new WebComponent(name, htmlTemplate, cssTemplate)
@@ -34,7 +33,7 @@ test('Creates a custom web component and ensures it has been added to the DOM.',
  */
 test('Ensure custom web component content is correctly set.', () => {
   // Arrange
-  const name = 'test-element-two'
+  const name = 'test-html'
 
   // Create html template.
   const htmlTemplate = document.createElement('template')
@@ -44,7 +43,6 @@ test('Ensure custom web component content is correctly set.', () => {
 
   // Not necessary for this test.
   const cssTemplate = document.createElement('template')
-  cssTemplate.innerHTML = ''
 
   // Create component.
   const component = new WebComponent(name, htmlTemplate, cssTemplate)
@@ -64,7 +62,7 @@ test('Ensure registered events can fire', () => {
   let wasClicked = false
   let idOfTarget = ''
 
-  const name = 'test-element-three'
+  const name = 'test-event'
 
   // Create html template.
   const htmlTemplate = document.createElement('template')
@@ -74,7 +72,6 @@ test('Ensure registered events can fire', () => {
 
   // Not necessary for this test.
   const cssTemplate = document.createElement('template')
-  cssTemplate.innerHTML = ''
 
   // Create component.
   const component = new WebComponent(name, htmlTemplate, cssTemplate)

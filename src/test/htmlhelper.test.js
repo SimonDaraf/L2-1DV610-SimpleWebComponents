@@ -1,5 +1,5 @@
 import { expect, test } from 'vitest'
-import { createElement } from '../../package/htmlHelper.js'
+import { createElement, createCssTemplateElement } from '../../package/htmlHelper.js'
 
 test('Assert can create html element', () => {
   // Arrange
@@ -11,4 +11,27 @@ test('Assert can create html element', () => {
   // Assert
   expect(htmlTemplateElement).instanceOf(HTMLTemplateElement)
   expect(htmlTemplateElement.innerHTML).toStrictEqual(html)
+})
+
+test('Assert can create CSS Template element', () => {
+  // Arrange
+  const cssCode = `
+  #test-text {
+    font-size: 20px;
+  }
+  `
+
+  // Act
+  const cssElement = createCssTemplateElement(cssCode)
+  const htmlElement = createElement('Hello', 'p')
+  htmlElement.id = 'test-text'
+
+  document.body.appendChild(cssElement.content.cloneNode(true))
+  document.body.appendChild(htmlElement)
+
+  const computedElement = document.querySelector('#test-text')
+  const fontSize = parseFloat(window.getComputedStyle(computedElement, null).getPropertyValue('font-size'))
+
+  // Assert
+  expect(fontSize).toEqual(20)
 })

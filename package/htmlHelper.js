@@ -14,3 +14,15 @@ export const createElement = function (htmlCode, elementType) {
   element.innerHTML = htmlCode
   return element
 }
+
+/**
+ * Creates a HTMLTemplate element and wraps the css code in a HTML style tag.
+ *
+ * @param {string} cssCode - The CSS code.
+ * @returns {HTMLTemplateElement} - The css template element.
+ */
+export const createCssTemplateElement = function (cssCode) {
+  const element = document.createElement('template')
+  element.innerHTML = `<style> ${cssCode} </style>`.trim()
+  return element
+}

@@ -36,13 +36,14 @@ export class WebComponent {
    * Constructs an instance of a Web Component.
    *
    * @param {string} componentName - The component name, needs to follow the html element name syntax.
-   * @param {HTMLTemplateElement} htmlTemplate - The html to render.
-   * @param {HTMLTemplateElement} cssTemplate - The css to render.
+   * @param {HTMLTemplateElement|string} html - The html to render | The url to the HTML file.
+   * @param {HTMLTemplateElement} css - The css to render.
    */
-  constructor (componentName, htmlTemplate, cssTemplate) {
+  constructor (componentName, html, css) {
     this.#componentName = componentName
-    this.#htmlTemplate = htmlTemplate
-    this.#cssTemplate = cssTemplate
+
+    this.#htmlTemplate = html
+    this.#cssTemplate = css
     this.#registeredEvents = []
   }
 

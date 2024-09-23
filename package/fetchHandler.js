@@ -13,6 +13,10 @@ export class FetchHandler {
     // Fetch html.
     const response = await fetch(url)
 
+    if (!response.ok) {
+      throw new Error(`Failed to fetch file from: ${url}`)
+    }
+
     // Return the response as a string.
     return await response.text()
   }

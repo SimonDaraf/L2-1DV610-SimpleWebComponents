@@ -29,7 +29,7 @@ The function to invoke when the event is fired.
 /**
  * The event function.
  *
- * @param {object} event - The event object. 
+ * @param {MouseEvent} event - The click event object. 
  */
 const evtFunc = function(event) {
   // Event logic...

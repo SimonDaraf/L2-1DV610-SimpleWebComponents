@@ -24,4 +24,8 @@
 
 * ### [WebComponent](./documentation/WebComponent.md)
 
+## Known Issues
+
+Vite HMR messing up dynamic imports.
+
 ## Licence <a name=licence></a>

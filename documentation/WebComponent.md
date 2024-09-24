@@ -5,21 +5,15 @@ The WebComponent class allows users to more easily create user-defined elements 
 
 ## Construction
 
-### `constructor(componentName : string, htmlTemplate : HTMLTemplateElement, cssTemplate : HTMLTemplateElement) : WebComponent`
+### `constructor(componentName : string, html : HTMLTemplateElement|string, css : HTMLTemplateElement|string) : WebComponent`
 * `componentName : string` - The name to be used when initializing the HTML element.
-* `htmlTemplate : HTMLTemplateElement` - A template element containing the HTML content.
-* `cssTemplate : HTMLTemplateElement` - A template element containing the CSS content.
+* `html : HTMLTemplateElement|string` - A template element containing the HTML content. | The local URL to the html file.
+* `css : HTMLTemplateElement|string` - A template element containing the CSS content. | The local URL to the CSS file.
 
 ## Properties
 
 ### `componentName : string`
 The component name. This is what's used to initialize the element.
-
-### `htmlContent : string`
-A string containing the html content to be rendered.
-
-### `cssContent : string`
-A string containing the css content to be rendered.
 
 ## Methods
 
@@ -28,11 +22,12 @@ Registers an event to the web component.
 
 * `event : EventContainer` - The event container to register.
 
-### `defineComponent() : void`
+### `async defineComponent() : void`
 Registers the web component allowing users to create instances of the custom element within the DOM.
 
-## Example
+## Examples
 
+### Example Using Template Elements.
 ```js
 // Define a html template.
 const htmlTemplate = document.createElement('template');
@@ -55,7 +50,48 @@ cssTemplate.innerHtml = `
 const component = new WebComponent('my-component', htmlTemplate, cssTemplate);
 
 // Register the component.
-component.defineComponent();
+await component.defineComponent();
+
+// The element can then be created.
+const myElement = document.createElement('my-component');
+```
+
+### Example Using URL.
+```js
+// Local URL to HTML file.
+const html = './template.html';
+
+// Local URL to CSS file.
+const css = './template.css';
+
+// Create web component.
+const component = new WebComponent('my-component', html, css);
+
+// Register the component.
+await component.defineComponent();
+
+// The element can then be created.
+const myElement = document.createElement('my-component');
+```
+
+### Register Events.
+```js
+// Create web component.
+const component = new WebComponent('my-component', html, css);
+
+// Create event function.
+const evtFunc = function(event) {
+  // Event logic...
+}
+
+// Create event.
+const myEvent = new EventContainer('click', '#my-button', evtFunc);
+
+// Make sure to register any events before defining.
+component.registerEvent(myEvent);
+
+// Register the component.
+await component.defineComponent();
 
 // The element can then be created.
 const myElement = document.createElement('my-component');

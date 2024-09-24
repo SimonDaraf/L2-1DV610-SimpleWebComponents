@@ -1,4 +1,6 @@
 import { EventContainer } from './eventContainer.js'
+import { FetchHandler } from './fetchHandler.js'
+import * as htmlHelper from './htmlHelper.js'
 
 /**
  * The Web Component class builds and defines a web component.
@@ -12,18 +14,18 @@ export class WebComponent {
   #componentName
 
   /**
-   * The html template.
+   * The html template|url.
    *
-   * @type {HTMLTemplateElement}
+   * @type {HTMLTemplateElement|string}
    */
-  #htmlTemplate
+  #html
 
   /**
-   * The css template.
+   * The css template|url.
    *
-   * @type {HTMLTemplateElement}
+   * @type {HTMLTemplateElement|string}
    */
-  #cssTemplate
+  #css
 
   /**
    * An array of registered events.
@@ -33,17 +35,24 @@ export class WebComponent {
   #registeredEvents
 
   /**
+   * A helper class for fetch requests.
+   *
+   * @type {FetchHandler}
+   */
+  #fetchHandler
+
+  /**
    * Constructs an instance of a Web Component.
    *
    * @param {string} componentName - The component name, needs to follow the html element name syntax.
    * @param {HTMLTemplateElement|string} html - The html to render | The url to the HTML file.
-   * @param {HTMLTemplateElement} css - The css to render.
+   * @param {HTMLTemplateElement|string} css - The css to render | The url to the CSS file.
    */
   constructor (componentName, html, css) {
     this.#componentName = componentName
-
-    this.#htmlTemplate = html
-    this.#cssTemplate = css
+    this.#fetchHandler = new FetchHandler()
+    this.#html = html
+    this.#css = css
     this.#registeredEvents = []
   }
 
@@ -58,23 +67,23 @@ export class WebComponent {
   }
 
   /**
-   * The HTML content.
+   * Creates a html template element from the given local URL.
    *
-   * @readonly
-   * @returns {string} - The HTML content.
+   * @param {string} url - The URL to load.
    */
-  get htmlContent () {
-    return this.#htmlTemplate.innerHTML
+  async #loadHtmlTemplate (url) {
+    const htmlCode = await this.#fetchHandler.fetchLocal(url)
+    this.#html = htmlHelper.createElement(htmlCode, 'template')
   }
 
   /**
-   * The CSS content.
+   * Creates a css template element from the given local URL.
    *
-   * @readonly
-   * @returns {string} - The CSS content.
+   * @param {string} url - The URL to load.
    */
-  get cssContent () {
-    return this.#cssTemplate.innerHTML
+  async #loadCssTemplate (url) {
+    const cssCode = await this.#fetchHandler.fetchLocal(url)
+    this.#css = htmlHelper.createCssTemplateElement(cssCode)
   }
 
   /**
@@ -91,11 +100,21 @@ export class WebComponent {
    * allows the component to be utilized withing the DOM.
    * This should be called after the component as a whole has been set up.
    */
-  defineComponent () {
+  async defineComponent () {
+    // If html is not an instance of a HTMLTemplateElement, assume url and load.
+    if (!(this.#html instanceof HTMLTemplateElement)) {
+      await this.#loadHtmlTemplate(this.#html)
+    }
+
+    // If css is not an instance of a HTMLTemplateElement, assume url and load.
+    if (!(this.#css instanceof HTMLTemplateElement)) {
+      await this.#loadCssTemplate(this.#css)
+    }
+
     // Use closure to allow our HTMLElement class to access these fields.
     // This is a necessity due to how HTMLElements are handled and created.
-    const htmlTemplate = this.#htmlTemplate
-    const cssTemplate = this.#cssTemplate
+    const htmlTemplate = this.#html
+    const cssTemplate = this.#css
     const registeredEvents = this.#registeredEvents
 
     customElements.define(this.#componentName,

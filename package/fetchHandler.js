@@ -1,18 +1,19 @@
 /**
- * A HTML helper class that provides functionality for handling functionallity regarding HTML.
+ * A fetch helper class.
  */
 export class FetchHandler {
   /**
-   * Fetches and returns HTML code from given local url.
+   * Fetches and returns the text content from given local url.
    *
    * @throws {Error} - If fetch failed.
-   * @param {string} url - The url to the HTML code.
-   * @returns {Promise<string>} - The fetched HTML as a string.
+   * @param {string} url - The url to the local file.
+   * @returns {Promise<string>} - The fetched content as a string.
    */
-  async fetchLocalHtml (url) {
-    // Fetch html.
+  async fetchLocal (url) {
+    // Fetch content.
     const response = await fetch(url)
 
+    // Validate response.
     if (!response.ok) {
       throw new Error(`Failed to fetch file from: ${url}`)
     }

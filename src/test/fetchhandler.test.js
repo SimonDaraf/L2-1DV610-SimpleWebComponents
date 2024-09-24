@@ -25,7 +25,7 @@ test('Assert can fetch html', async () => {
 
   fetch.mockResolvedValue(createFetchResponse(fetchResponse, true))
 
-  const response = await fetchHandler.fetchLocalHtml(url)
+  const response = await fetchHandler.fetchLocal(url)
 
   expect(fetch).toHaveBeenCalledWith(url)
   expect(response).toStrictEqual(fetchResponse)

@@ -23,6 +23,6 @@ export const createElement = function (htmlCode, elementType) {
  */
 export const createCssTemplateElement = function (cssCode) {
   const element = document.createElement('template')
-  element.innerHTML = `<style> ${cssCode} </style>`.trim()
+  element.innerHTML = `<style> ${cssCode} </style>`
   return element
 }

@@ -1,12 +1,12 @@
 import { expect, test } from 'vitest'
-import { createElement, createCssTemplateElement } from '../../package/htmlHelper.js'
+import { createHtmlElement, createCssTemplateElement } from '../../package/htmlHelper.js'
 
 test('Assert can create html element', () => {
   // Arrange
   const html = '<div>My html code.</div>'
 
   // Act
-  const htmlTemplateElement = createElement(html, 'template')
+  const htmlTemplateElement = createHtmlElement(html, 'template')
 
   // Assert
   expect(htmlTemplateElement).instanceOf(HTMLTemplateElement)
@@ -23,7 +23,7 @@ test('Assert can create CSS Template element', () => {
 
   // Act
   const cssElement = createCssTemplateElement(cssCode)
-  const htmlElement = createElement('Hello', 'p')
+  const htmlElement = createHtmlElement('Hello', 'p')
   htmlElement.id = 'test-text'
 
   document.body.appendChild(cssElement.content.cloneNode(true))

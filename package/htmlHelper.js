@@ -9,7 +9,7 @@
  * @param {string} elementType - The element type.
  * @returns {HTMLElement} - The created HTML element.
  */
-export const createElement = function (htmlCode, elementType) {
+export const createHtmlElement = function (htmlCode, elementType) {
   const element = document.createElement(elementType)
   element.innerHTML = htmlCode
   return element

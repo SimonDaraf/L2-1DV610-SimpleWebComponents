@@ -10,7 +10,7 @@ const css = new URL('./button.css', MODULE_PATH)
 const buttonComponent = new WebComponent('button-component', html, css)
 
 /**
- * Changes the background.
+ * Changes the container background color to a random color.
  *
  * @param {MouseEvent} event - The click event object.
  */
@@ -19,8 +19,9 @@ const clickEvent = function (event) {
 
   // Check if our button fired event.
   if (event.target.id === 'my-button') {
-    const container = event.currentTarget // Get container.
+    const container = event.currentTarget
 
+    // Set a random color.
     let color = '#'
     for (let i = 0; i < 6; i++) {
       color += Math.floor(Math.random() * 10) // Number between [0 - 9].

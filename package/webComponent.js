@@ -1,5 +1,6 @@
 import { EventContainer } from './eventContainer.js'
 import { FetchHandler } from './fetchHandler.js'
+import { htmlElementConstructor } from './htmlElementConstructor.js'
 import * as htmlHelper from './htmlHelper.js'
 
 /**
@@ -73,7 +74,7 @@ export class WebComponent {
    */
   async #loadHtmlTemplate (url) {
     const htmlCode = await this.#fetchHandler.fetchLocal(url)
-    this.#html = htmlHelper.createElement(htmlCode, 'template')
+    this.#html = htmlHelper.createHtmlElement(htmlCode, 'template')
   }
 
   /**
@@ -101,72 +102,14 @@ export class WebComponent {
    * This should be called after the component as a whole has been set up.
    */
   async defineComponent () {
-    // If html is not an instance of a HTMLTemplateElement, assume url and load.
+    // Check whether to use HTMLTemplate or assume URL and load.
     if (!(this.#html instanceof HTMLTemplateElement)) {
       await this.#loadHtmlTemplate(this.#html)
     }
-
-    // If css is not an instance of a HTMLTemplateElement, assume url and load.
     if (!(this.#css instanceof HTMLTemplateElement)) {
       await this.#loadCssTemplate(this.#css)
     }
 
-    // Use closure to allow our HTMLElement class to access these fields.
-    // This is a necessity due to how HTMLElements are handled and created.
-    const htmlTemplate = this.#html
-    const cssTemplate = this.#css
-    const registeredEvents = this.#registeredEvents
-
-    customElements.define(this.#componentName,
-      /**
-       * The custom element constructor.
-       */
-      class extends HTMLElement {
-        /**
-         * The abort controller object, used to properly remove any event listeners
-         * when the element leaves the DOM.
-         *
-         * @type {AbortController}
-         */
-        #abortController
-
-        /**
-         * Constructs a new instance of the user-defined HTMLElement.
-         */
-        constructor () {
-          super()
-
-          // Attach a shadow DOM tree to this custom element and
-          // append the templates to the shadow root.
-          this.attachShadow({ mode: 'open' })
-          this.shadowRoot.appendChild(cssTemplate.content.cloneNode(true))
-          this.shadowRoot.appendChild(htmlTemplate.content.cloneNode(true))
-
-          // Create a new AbortController to remove EventListeners when element is removed from the DOM.
-          this.#abortController = new AbortController()
-        }
-
-        /**
-         * Called after the element is inserted into the DOM.
-         */
-        connectedCallback () {
-          // For each registered event.
-          for (const event of registeredEvents) {
-            // Get element to attach listener to.
-            const targetElement = this.shadowRoot.querySelector(event.eventListenerElementID)
-
-            // Add event listener and set abort controller signal to ensure the listener is properly removed later.
-            targetElement.addEventListener(event.eventName, event.eventFunction, { signal: this.#abortController.signal })
-          }
-        }
-
-        /**
-         * Called after the element is removed from the DOM.
-         */
-        disconnectedCallback () {
-          this.#abortController.abort()
-        }
-      }
-    )
+    htmlElementConstructor(this.#componentName, this.#html, this.#css, this.#registeredEvents)
   }
 }

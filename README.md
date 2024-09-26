@@ -1,17 +1,17 @@
 # L2-1DV610-SimpleWebComponents
 
 ## Table of contents
-1. [Introduction](#introduction)
-    1. [Dependencies](#dependencies)
-    2. [Known Issues](#known-issues)
-2. [Installation](#installation)
-    1. [Manual](#manual)
-    2. [Using NPM](#using-npm)
-3. [Documentation](#documentation)
-    1. [WebComponent](./documentation/WebComponent.md)
-    2. [EventContainer](./documentation/EventContainer.md)
-4. [Example Usage](#example-usage)
-5. [Licence](#licence)
+* [Introduction](#introduction)
+    * [Dependencies](#dependencies)
+    * [Known Issues](#known-issues)
+* [Installation](#installation)
+    * [Manual](#manual)
+    * [Using NPM](#using-npm)
+* [Documentation](#documentation)
+    * [WebComponent](./documentation/WebComponent.md)
+    * [EventContainer](./documentation/EventContainer.md)
+* [Example Usage](#example-usage)
+* [Licence](#licence)
 
 ## Introduction <a name="introduction"></a>
 The SimpleWebComponents package simplifies the process of using custom web components. Decreasing the amount of boilerplate code needed for each component.
@@ -23,8 +23,11 @@ The SimpleWebComponents package simplifies the process of using custom web compo
 ## Installation <a name="installation"></a>
 
 * ### Manual <a name="manual"></a>
+  * Extract the source code from `/package` into your project.
+  * Import `{ WebComponent }` from `webComponent.js` and `{ EventContainer }` from `eventContainer.js`. These act as the public interface.
 
 * ### Using NPM <a name="using-npm"></a>
+  * Start by running `npm i simple-web-components`
 
 ## Documentation <a name="documentation"></a>
 
@@ -72,4 +75,4 @@ await buttonComponent.defineComponent()
 ```
 
 ## Licence <a name=licence></a>
-The source code is licensed under the MIT license, which can be found in the [MIT-LICENSE](./MIT-LICENSE.txt) file.
+The source code is licensed under the MIT license, which can be found in the [LICENSE](./LICENSE) file.

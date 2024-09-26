@@ -73,7 +73,12 @@ export class WebComponent {
    * @param {string} url - The URL to load.
    */
   async #loadHtmlTemplate (url) {
-    const htmlCode = await this.#fetchHandler.fetchLocal(url)
+    const htmlCode = await this.#fetchHandler.fetchLocal(url, {
+      mode: 'same-origin',
+      headers: {
+        Accept: 'text/html'
+      }
+    })
     this.#html = htmlHelper.createHtmlElement(htmlCode, 'template')
   }
 
@@ -83,7 +88,12 @@ export class WebComponent {
    * @param {string} url - The URL to load.
    */
   async #loadCssTemplate (url) {
-    const cssCode = await this.#fetchHandler.fetchLocal(url)
+    const cssCode = await this.#fetchHandler.fetchLocal(url, {
+      mode: 'same-origin',
+      headers: {
+        Accept: 'text/css'
+      }
+    })
     this.#css = htmlHelper.createCssTemplateElement(cssCode)
   }
 

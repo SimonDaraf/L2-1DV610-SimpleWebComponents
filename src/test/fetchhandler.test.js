@@ -22,11 +22,37 @@ function createFetchResponse (data, ok = true) {
 test('Assert can fetch html', async () => {
   const fetchResponse = '<div>Mock html</div>'
   const url = './sometesturl/myfile.html' // This can be whatever, we mock the actual fetch.
+  const options = {
+    headers: {
+      Accept: 'text/html'
+    }
+  }
 
   fetch.mockResolvedValue(createFetchResponse(fetchResponse, true))
 
-  const response = await fetchHandler.fetchLocal(url)
+  const response = await fetchHandler.fetchLocal(url, options)
 
-  expect(fetch).toHaveBeenCalledWith(url)
+  expect(fetch).toHaveBeenCalledWith(url, options)
+  expect(response).toStrictEqual(fetchResponse)
+})
+
+test('Assert can fetch css', async () => {
+  const fetchResponse = `
+  body {
+    margin: 0;
+  }
+  `
+  const url = './sometesturl/myfile.css'
+  const options = {
+    headers: {
+      Accept: 'text/css'
+    }
+  }
+
+  fetch.mockResolvedValue(createFetchResponse(fetchResponse, true))
+
+  const response = await fetchHandler.fetchLocal(url, options)
+
+  expect(fetch).toHaveBeenCalledWith(url, options)
   expect(response).toStrictEqual(fetchResponse)
 })

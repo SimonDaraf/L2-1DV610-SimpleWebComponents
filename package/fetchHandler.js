@@ -7,11 +7,12 @@ export class FetchHandler {
    *
    * @throws {Error} - If fetch failed.
    * @param {string} url - The url to the local file.
+   * @param {object} fetchOptions - The fetch options.
    * @returns {Promise<string>} - The fetched content as a string.
    */
-  async fetchLocal (url) {
+  async fetchLocal (url, fetchOptions) {
     // Fetch content.
-    const response = await fetch(url)
+    const response = await fetch(url, fetchOptions)
 
     // Validate response.
     if (!response.ok) {

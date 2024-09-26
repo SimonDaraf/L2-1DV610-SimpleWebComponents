@@ -10,7 +10,7 @@
 3. [Documentation](#documentation)
     1. [WebComponent](./documentation/WebComponent.md)
     2. [EventContainer](./documentation/EventContainer.md)
-4. [Example](#example)
+4. [Example Usage](#example-usage)
 5. [Licence](#licence)
 
 ## Introduction <a name="introduction"></a>
@@ -31,7 +31,7 @@ The SimpleWebComponents package simplifies the process of using custom web compo
 * ### [WebComponent](./documentation/WebComponent.md)
 * ### [EventContainer](./documentation/EventContainer.md)
 
-## Example <a name="example"></a>
+## Example Usage <a name="example-usage"></a>
 ```js
 // Local URL's to files.
 const MODULE_PATH = import.meta.url

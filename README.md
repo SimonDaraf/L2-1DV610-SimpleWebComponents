@@ -1,4 +1,4 @@
-# L2-1DV610-SimpleWebComponents
+# L2-1DV610-SimplifiedWebComponents
 
 ## Table of contents
 * [Introduction](#introduction)
@@ -14,11 +14,12 @@
 * [Licence](#licence)
 
 ## Introduction <a name="introduction"></a>
-The SimpleWebComponents package simplifies the process of using custom web components. Decreasing the amount of boilerplate code needed for each component.
+*NOTE*: This is not the official repository for the module. For official information please [click here](https://www.npmjs.com/package/simplified-web-components?activeTab=readme)
+
+The SimplifiedWebComponents package simplifies the process of using custom web components. Decreasing the amount of boilerplate code needed for each component.
 
 * ### Dependencies <a name="dependencies"></a>
-* ### Known Issues <a name="known-issues"></a>
-    Using Vite HMR can alter parts of dynamically loaded HTML and CSS which causes it to not be read properly.
+  * `ES2020`
 
 ## Installation <a name="installation"></a>
 
@@ -27,7 +28,7 @@ The SimpleWebComponents package simplifies the process of using custom web compo
   * Import `{ WebComponent }` from `webComponent.js` and `{ EventContainer }` from `eventContainer.js`. These act as the public interface.
 
 * ### Using NPM <a name="using-npm"></a>
-  * Start by running `npm i simple-web-components`
+  * Install using `npm i simplified-web-components`
 
 ## Documentation <a name="documentation"></a>
 

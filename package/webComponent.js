@@ -46,14 +46,15 @@ export class WebComponent {
    * Constructs an instance of a Web Component.
    *
    * @param {string} componentName - The component name, needs to follow the html element name syntax.
-   * @param {HTMLTemplateElement|string} html - The html to render | The url to the HTML file.
-   * @param {HTMLTemplateElement|string} css - The css to render | The url to the CSS file.
+   * @param {HTMLTemplateElement|string|URL} html - The html to render | The url to the HTML file as a string | The url to the HTML file as a URL.
+   * @param {HTMLTemplateElement|string|URL} css - The css to render | The url to the CSS file as a string | The url to the CSS file as a URL.
    */
   constructor (componentName, html, css) {
     this.#setComponentName(componentName)
+    this.#setHtml(html)
+    this.#setCss(css)
+
     this.#fetchHandler = new FetchHandler()
-    this.#html = html
-    this.#css = css
     this.#registeredEvents = []
   }
 
@@ -75,6 +76,38 @@ export class WebComponent {
     }
 
     this.#componentName = newComponentName
+  }
+
+  /**
+   * Sets the html field.
+   *
+   * @throws {Error} - If new html is invalid.
+   * @param {HTMLTemplateElement|string|URL} newHtml - The new HTMLTemplateElement | string | URL.
+   */
+  #setHtml (newHtml) {
+    if (!(newHtml instanceof HTMLTemplateElement) &&
+        !(newHtml instanceof URL) &&
+        typeof (newHtml) !== 'string') {
+      throw new Error('Invalid type of html, expected type: HTMLTemplateElement, string or URL')
+    }
+
+    this.#html = newHtml
+  }
+
+  /**
+   * Sets the css field.
+   *
+   * @throws {Error} - If new css is invalid.
+   * @param {HTMLTemplateElement|string|URL} newCss - The new HTMLTemplateElement | string | URL.
+   */
+  #setCss (newCss) {
+    if (!(newCss instanceof HTMLTemplateElement) &&
+        !(newCss instanceof URL) &&
+        typeof (newCss) !== 'string') {
+      throw new Error('Invalid type of css, expected type: HTMLTemplateElement, string or URL')
+    }
+
+    this.#css = newCss
   }
 
   /**

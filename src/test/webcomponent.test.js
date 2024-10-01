@@ -2,9 +2,67 @@ import { expect, test } from 'vitest'
 import { WebComponent } from '../../package/webComponent.js'
 import { EventContainer } from '../../package/eventContainer.js'
 
-/**
- * Test: Expects element to be added to the DOM.
- */
+test('Assert component name is valid', () => {
+  // Arrange
+  const validName = 'my-component'
+
+  // Act
+  const webComp = new WebComponent(validName, 'url/test', 'url/test')
+
+  // Assert
+  expect(webComp.componentName).toStrictEqual(validName)
+})
+
+test('Assert component name is invalid', () => {
+  // Arrange
+  const invalidNameOne = 'div'
+  const invalidNameTwo = 'myComponent'
+
+  // Act, Assert
+  expect(() => { return new WebComponent(invalidNameOne, 'test/url', 'test/url') }).toThrowError()
+  expect(() => { return new WebComponent(invalidNameTwo, 'test/url', 'test/url') }).toThrowError()
+})
+
+test('Assert html is valid', () => {
+  // Arrange
+  const validOne = document.createElement('template')
+  const validTwo = 'test/url'
+  const validThree = new URL('./test/url', import.meta.url)
+
+  // Act, Assert
+  expect(new WebComponent('test-component', validOne, 'test/url')).instanceOf(WebComponent)
+  expect(new WebComponent('test-component', validTwo, 'test/url')).instanceOf(WebComponent)
+  expect(new WebComponent('test-component', validThree, 'test/url')).instanceOf(WebComponent)
+})
+
+test('Assert html is invalid', () => {
+  // Arrange
+  const invalidHtml = { }
+
+  // Act, Assert
+  expect(() => { return new WebComponent('my-component', invalidHtml, 'test/url') }).toThrowError()
+})
+
+test('Assert css is valid', () => {
+  // Arrange
+  const validOne = document.createElement('template')
+  const validTwo = 'test/url'
+  const validThree = new URL('./test/url', import.meta.url)
+
+  // Act, Assert
+  expect(new WebComponent('test-component', 'test/url', validOne)).instanceOf(WebComponent)
+  expect(new WebComponent('test-component', 'test/url', validTwo)).instanceOf(WebComponent)
+  expect(new WebComponent('test-component', 'test/url', validThree)).instanceOf(WebComponent)
+})
+
+test('Assert css is invalid', () => {
+  // Arrange
+  const invalidCss = { }
+
+  // Act, Assert
+  expect(() => { return new WebComponent('my-component', 'test/url', invalidCss) }).toThrowError()
+})
+
 test('Creates a custom web component and ensures it has been added to the DOM.', () => {
   // Arrange
   const name = 'test-creation'
@@ -28,9 +86,6 @@ test('Creates a custom web component and ensures it has been added to the DOM.',
   expect(element).toBeDefined()
 })
 
-/**
- * Test: Expects html template to be correctly applied.
- */
 test('Ensure custom web component content is correctly set.', () => {
   // Arrange
   const name = 'test-html'
